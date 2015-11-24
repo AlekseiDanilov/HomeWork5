@@ -10,7 +10,7 @@ public class TestIntArrayUtilFilter {
     public void testIntArrayUtilFilterParity() {
         assertArrayEquals(IntArrayUtil.filter(new int[]{1, 2, 3, 4}, new Predicate() {
             @Override
-            public boolean selection(int value) {
+            public boolean apply(int value) {
                 if (value % 2 == 0) {
                     return true;
                 }
@@ -23,7 +23,7 @@ public class TestIntArrayUtilFilter {
     public void testIntArrayUtilFilterMoreHundred() {
             assertArrayEquals(IntArrayUtil.filter(new int[]{1, 100, 200, 400, 25}, new Predicate() {
             @Override
-            public boolean selection(int value) {
+            public boolean apply(int value) {
                 if (value > 100) {
                     return true;
                 }

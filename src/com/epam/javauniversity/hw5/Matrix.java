@@ -3,73 +3,61 @@ package com.epam.javauniversity.hw5;
 import java.util.Arrays;
 
 public class Matrix {
-    int[][] array;
-    int numberRow;
-    int numberCol;
+    private int[][] elements;
 
     public Matrix() {
-        array = new int[][]{};
+        elements = new int[][]{};
     }
 
-    public Matrix(Matrix matrix) {
-        this.numberRow = matrix.numberRow;
-        this.numberCol = matrix.numberCol;
-        for (int i = 0; i < numberRow; i++) {
-            for (int j = 0; j < numberCol; j++) {
-                this.array[i][j] = matrix.array[i][j];
-            }
+    public Matrix(int[][] elements) {
+        if (isMatrix(elements)) {
+            this.elements = copyElements(elements);
+        } else {
+            this.elements = new int[][]{};
         }
     }
 
-    public Matrix(int[][] array) {
-        if (isMatrix(array)) {
-            numberRow = getNumberRow(array);
-            numberCol = getNumberCol(array);
-            this.array = new int[numberRow][numberCol];
-            for (int i = 0; i < numberRow; i++) {
-                for (int j = 0; j < numberCol; j++) {
-                    this.array[i][j] = array[i][j];
-                }
-            }
-        }
-    }
-
-    public boolean isMatrix(int[][] array) {
-        if (array == null) {
+    public boolean isMatrix(int[][] elements) {
+        if (elements == null) {
             return false;
         }
-        for (int i = 0; i < array.length; i++) {
-            if (array[i] == null) {
+        for (int row = 0; row < elements.length; row++) {
+            if (elements[row] == null) {
                 return false;
             }
         }
-        if (array[0].length == 0) {
-            return false;
-        }
-        int numberElementInLine = array[0].length;
-        for (int i = 1; i < array.length; i++) {
-            if (array[i].length != numberElementInLine) {
+        int numberElementFirstLine = elements[0].length;
+        for (int row = 0; row < elements.length; row++) {
+            if (elements[row].length != numberElementFirstLine) {
                 return false;
             }
         }
         return true;
     }
 
-    private int getNumberRow(int[][] array) {
-        return array.length;
+    public int getNumberRow() {
+        return elements.length;
     }
 
-    private int getNumberCol(int[][] array) {
-        return array[0].length;
+    public int getNumberCol() {
+        return elements[0].length;
+    }
+
+    public int[][] getElements(){
+        return elements.clone();
+    }
+
+    private int[][] copyElements(int[][] elements) {
+        int[][] copyElements = new int[elements.length][elements[0].length];
+        for (int row = 0; row < elements.length; row++) {
+            for (int col = 0; col < elements[0].length; col++) {
+                copyElements[row][col] = elements[row][col];
+            }
+        }
+        return copyElements;
     }
 
     public Matrix clone() {
-        int[][] arrayForClone = new int[numberRow][numberCol];
-        for (int i = 0; i < numberRow; i++) {
-            for (int j = 0; j < numberCol; j++) {
-                arrayForClone[i][j] = array[i][j];
-            }
-        }
-        return new Matrix(arrayForClone);
+        return new Matrix(this.copyElements(this.elements));
     }
 }

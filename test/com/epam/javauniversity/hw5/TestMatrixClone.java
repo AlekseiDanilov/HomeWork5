@@ -10,10 +10,8 @@ public class TestMatrixClone {
         Matrix matrix = new Matrix(new int[][]{{1, 2},
                                                {3, 4},
                                                {5, 6}}).clone();
-        assertArrayEquals(matrix.array,new int[][]{{1, 2},
-                                                   {3, 4},
-                                                   {5, 6}});
-        assertTrue(matrix.numberRow == 3);
-        assertTrue(matrix.numberCol == 2);
+        assertArrayEquals(matrix.getElements(),new int[][]{{1, 2},
+                                                           {3, 4},
+                                                           {5, 6}});
     }
 }
